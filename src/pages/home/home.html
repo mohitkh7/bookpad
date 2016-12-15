@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-navbar color="teal">
+    <ion-title>
+      BookPad
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content persistent="true" >
+
+	<ion-list>
+
+		<ion-item-divider color="light" text-center >Currently Issued</ion-item-divider>
+		{{message}}
+		<ion-item-sliding *ngFor="let book of bookList(1)">
+			<ion-item >
+				<ion-thumbnail item-left>
+					<img src="img/books.png" height="80px"/>
+				</ion-thumbnail>
+				<h2>{{book.title}}</h2>
+				<p>{{book.author}}</p>
+			</ion-item>
+
+			<ion-item-options side="right">
+	      <button ion-button text-capitalize color="secondary" (click)="changeStatus(book,2)">
+	        <ion-icon name="checkmark"></ion-icon>
+	        return
+	      </button>
+	      <button ion-button text-capitalize color="primary" (click)="openUpdateBook(book)">
+	        <ion-icon name="create"></ion-icon>
+	        Update
+	      </button>
+	      <button ion-button text-capitalize color="danger" (click)="removeBook(book)">
+	        <ion-icon name="trash"></ion-icon>
+	        Remove
+	      </button>
+	    </ion-item-options>
+	  </ion-item-sliding>
+
+	  <!-- Showing Book That where returned -->
+	  <ion-item-divider color="light" text-center>Returned</ion-item-divider>
+		<ion-item-sliding *ngFor="let book of bookList(2)" >
+			<ion-item >
+				<ion-thumbnail item-left>
+					<img src="img/books.png" height="80px"/>
+				</ion-thumbnail>
+				<h2>{{book.title}}</h2>
+				<p>{{book.author}}</p>
+			</ion-item>
+
+			<ion-item-options side="right">
+	      <button ion-button text-capitalize color="secondary" (click)="changeStatus(book,1)">
+	        <ion-icon name="refresh"></ion-icon>
+	        reIssue
+	      </button>
+	      <button ion-button text-capitalize color="primary" (click)="openUpdateBook(book)">
+	        <ion-icon name="create"></ion-icon>
+	        Update
+	      </button>
+	      <button ion-button text-capitalize color="danger" (click)="removeBook(book)">
+	        <ion-icon name="trash"></ion-icon>
+	        Remove
+	      </button>
+	    </ion-item-options>
+	  </ion-item-sliding>
+	</ion-list>
+
+	<button ion-button text-capitalize color="teal" class="add-book-button" (click)="openAddBook()">Add More Books</button> 
+</ion-content>

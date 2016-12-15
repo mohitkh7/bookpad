@@ -1,0 +1,37 @@
+<!--
+  Generated template for the AddBook page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="teal">
+    <ion-title>Add Book</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+	<ion-list>
+	
+
+		<ion-item>
+    	<ion-label floating>Book Title</ion-label>
+    	<ion-input type="text" [(ngModel)]="title"></ion-input>
+  	</ion-item>
+
+  	<ion-item>
+    	<ion-label floating>Book Author</ion-label>
+    	<ion-input type="text" [(ngModel)]="author"></ion-input>
+  	</ion-item>
+
+  	<ion-item>
+    	<ion-label floating>Return Date</ion-label>
+    	<ion-datetime pickerFormat="DD/MM/YYYY" displayFormat="DD MMMM YYYY" [(ngModel)]="returnDate" max="2020" min="{{todayDate}}" ></ion-datetime>
+  	</ion-item>
+	</ion-list>
+
+	<button ion-button text-capitalize color="teal" class="center-button" (click)="addBook()">Add Book</button>
+</ion-content>
