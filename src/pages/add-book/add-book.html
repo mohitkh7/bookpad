@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar color="teal">
+  <ion-navbar color="brown">
     <ion-title>Add Book</ion-title>
   </ion-navbar>
 
@@ -28,10 +28,15 @@
   	</ion-item>
 
   	<ion-item>
+  		<ion-label floating>Book Description</ion-label>
+  		<ion-textarea [(ngModel)]="description"></ion-textarea>
+  	</ion-item>
+
+  	<ion-item>
     	<ion-label floating>Return Date</ion-label>
     	<ion-datetime pickerFormat="DD/MM/YYYY" displayFormat="DD MMMM YYYY" [(ngModel)]="returnDate" max="2020" min="{{todayDate}}" ></ion-datetime>
   	</ion-item>
 	</ion-list>
 
-	<button ion-button text-capitalize color="teal" class="center-button" (click)="addBook()">Add Book</button>
+	<button ion-button text-capitalize color="brown" class="center-button" (click)="addBook()">Add Book</button>
 </ion-content>

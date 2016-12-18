@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 
 import { Data } from '../../providers/data';
 
 import { AddBook } from '../add-book/add-book';
-
 import { UpdateBook } from '../update-book/update-book';
+import { BookDetail } from '../book-detail/book-detail';
 
 @Component({
   selector: 'page-home',
@@ -16,8 +16,9 @@ export class HomePage {
 
 	public books=[];
 	message;
+	dayDifference;
 
-  constructor(public navCtrl: NavController, public dataService: Data) {
+  constructor(public navCtrl: NavController, public dataService: Data, public alertCtrl: AlertController) {
   	 
   }
 
@@ -29,19 +30,62 @@ export class HomePage {
     }); 
   }
 
+  //this function will count day difference
+  countDayDifference(book_object){
+  	let oneDay = 24*60*60*1000; 
+  	let tdt=new Date();
+  	let rdt=new Date(book_object.returnDate);
+  	let diff=Math.round((rdt.getTime() - tdt.getTime())/(oneDay));
+  	if(diff==0)
+  		return "Last day";
+  	else if(diff==1)
+  		return "1 Day left";
+  	else if(diff==-1)
+  		return Math.abs(diff)+" Day Late";
+  	else if(diff<-1)
+  		return Math.abs(diff)+" Days late";
+  	else
+  		return diff+" Days Left";
+  }
+
   //Change status to give No.
   changeStatus(book_object,target){
   	book_object.status=target;
+  	if(target==2)
+  		book_object.returnOnDate=new Date();
+  	if(target==1)
+  		book_object.issueDate=new Date();
   	this.dataService.saveData('book',this.books);
   }
 
-  
+  removeBookAlert(book_object) {
+    let confirm = this.alertCtrl.create({
+      title: 'Delete',
+      message: 'Are you sure to delete this book ?',
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Delete',
+          handler: () => {
+            this.removeBook(book_object);
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
 
   //remove book from list
   removeBook(book_object){
   	let i=this.books.indexOf(book_object);
   	this.books.splice(i,1);
-  	this.dataService.saveData('book',this.books);	
+  	this.dataService.saveData('book',this.books);
+  	this.navCtrl.setRoot(HomePage);	
   }
 
   bookList(status){
@@ -59,5 +103,9 @@ export class HomePage {
   //open update Page
   openUpdateBook(book_object){
   	this.navCtrl.push(UpdateBook,{book:book_object});
+  }
+  //open Book detail
+  openBookDetail(book_object){
+  	this.navCtrl.push(BookDetail,{book:book_object});
   }
 }

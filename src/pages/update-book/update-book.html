@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar color="teal">
+  <ion-navbar color="brown">
     <ion-title>Update</ion-title>
   </ion-navbar>
 
@@ -25,7 +25,11 @@
     	<ion-input type="text" [(ngModel)]="author"></ion-input>
   	</ion-item>
 
+    <ion-item>
+      <ion-label floating>Book Details</ion-label>
+      <ion-textarea [(ngModel)]="description"></ion-textarea>
+    </ion-item>
 	</ion-list>
 
-	<button ion-button text-capitalize color="teal" class="center-button" (click)="updateBook()">Update Book</button>
+	<button ion-button text-capitalize color="brown" class="center-button" (click)="updateBook()">Update Book</button>
 </ion-content>

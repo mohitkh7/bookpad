@@ -6,13 +6,15 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { AddBook } from '../pages/add-book/add-book';
 import { UpdateBook } from'../pages/update-book/update-book';
+import { BookDetail } from '../pages/book-detail/book-detail';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     AddBook,
-    UpdateBook
+    UpdateBook,
+    BookDetail
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -22,7 +24,8 @@ import { UpdateBook } from'../pages/update-book/update-book';
     MyApp,
     HomePage,
     AddBook,
-    UpdateBook
+    UpdateBook,
+    BookDetail
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Storage, Data]
 })

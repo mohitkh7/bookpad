@@ -16,10 +16,14 @@ export class AddBook {
 
 	title: string ="";
 	author: string="";
-	todayDate: string=new Date().toISOString();
-	returnDate=new Date().toISOString();
-	/*this.returnDate.setDate(this.returnDate.getDate());
-	let returnDate = new Date(new Date().getTime()+(5*24*60*60*1000));*/
+	description:string ="";
+	returnedOnDate="";
+	dt=new Date();
+
+	todayDate=this.dt.toISOString();
+	
+	returnDate=this.dt.toISOString();
+	
 
 	books=[];
   constructor(public navCtrl: NavController, public dataService: Data) {
@@ -34,8 +38,19 @@ export class AddBook {
   }
 
   addBook(){
-  	this.books.unshift({id:Math.random(),title:this.title,status:1,author:this.author,issueDate:this.todayDate,returnDate:this.returnDate});
+  	this.books.unshift({id:Math.random(),title:this.title,status:1,author:this.author,description:this.description,issueDate:this.todayDate,returnDate:this.returnDate,returnedOnDate:this.returnedOnDate});
   	this.dataService.saveData('book',this.books);
   	this.navCtrl.pop();
+  }
+
+  //format date to dd/mm/yyyy
+  dateFormat(dt)
+  {
+  	let symbol="/";
+  	alert(typeof(dt));
+  	let date=dt.getDate();
+  	let month=dt.getMonth()+1;
+  	let year=dt.getFullYear();
+  	return date+symbol+month+symbol+year; 
   }
 }

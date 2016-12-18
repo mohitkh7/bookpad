@@ -19,9 +19,12 @@ export class UpdateBook {
 	title;
 	author;
 	id;
-  constructor(public navCtrl: NavController,public navParams: NavParams,public dataService: Data) {}
+  description;
+  constructor(public navCtrl: NavController,public navParams: NavParams,public dataService: Data) {
 
-  ionViewDidLoad() {
+  }
+
+  ionViewWillEnter() {
   	//from database
   	this.dataService.getData('book').then((book) => {
       if(book){
@@ -29,9 +32,11 @@ export class UpdateBook {
       }
     }); 
     //from parameter
+    
     this.id=this.navParams.get('book').id;
     this.title=this.navParams.get('book').title;
     this.author=this.navParams.get('book').author;
+    this.description=this.navParams.get('book').description;
   }
 
   updateBook(){
@@ -40,6 +45,7 @@ export class UpdateBook {
   		{
   			this.books[i].title=this.title;
   			this.books[i].author=this.author;
+        this.books[i].description=this.description;
   		}
   	this.dataService.saveData('book',this.books);
   	this.navCtrl.pop();
