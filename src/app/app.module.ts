@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { AddBook } from '../pages/add-book/add-book';
 import { UpdateBook } from'../pages/update-book/update-book';
 import { BookDetail } from '../pages/book-detail/book-detail';
+import { Notification } from '../pages/services/notification';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,6 @@ import { BookDetail } from '../pages/book-detail/book-detail';
     UpdateBook,
     BookDetail
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Storage, Data]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Storage, Data, Notification]
 })
 export class AppModule {}

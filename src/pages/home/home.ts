@@ -54,7 +54,10 @@ export class HomePage {
   	if(target==2)
   		book_object.returnOnDate=new Date();
   	if(target==1)
+  	{
   		book_object.issueDate=new Date();
+  		this.openUpdateBook(book_object);
+  	}
   	this.dataService.saveData('book',this.books);
   }
 
@@ -88,13 +91,20 @@ export class HomePage {
   	this.navCtrl.setRoot(HomePage);	
   }
 
+  //used to show book as per there status
   bookList(status){
   	let arr=this.books.filter(book=>(book.status==status));
   	return arr;
   }
 
-  bookLength(status){
-  	
+  noOfBook(status){
+  	let ans=0;
+  	for(let i=0;i<this.books.length;i++)
+  	{
+  		if(this.books[i].status==status)
+  			ans++;
+  	}
+  	return ans;
   }
   //open Add Book page 
   openAddBook(){
@@ -108,4 +118,4 @@ export class HomePage {
   openBookDetail(book_object){
   	this.navCtrl.push(BookDetail,{book:book_object});
   }
-}
+};

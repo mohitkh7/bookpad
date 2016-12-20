@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Data } from '../../providers/data';
+import { Notification } from '../services/notification';
 
 /*
   Generated class for the AddBook page.
@@ -13,20 +14,24 @@ import { Data } from '../../providers/data';
   templateUrl: 'add-book.html'
 })
 export class AddBook {
-
+	
+	id=Math.random();
 	title: string ="";
 	author: string="";
 	description:string ="";
 	returnedOnDate="";
 	dt=new Date();
-
 	todayDate=this.dt.toISOString();
-	
 	returnDate=this.dt.toISOString();
 	
-
+	book;
 	books=[];
-  constructor(public navCtrl: NavController, public dataService: Data) {
+  constructor(public navCtrl: NavController, public dataService: Data, public notification: Notification) {
+  	//adding 15 days
+  	let date=new Date();
+  	date.setDate(date.getDate()+15);
+  	date.setHours(10,0,0);
+  	this.returnDate=date.toISOString();
   }
 
   ionViewWillEnter(){
@@ -38,19 +43,27 @@ export class AddBook {
   }
 
   addBook(){
-  	this.books.unshift({id:Math.random(),title:this.title,status:1,author:this.author,description:this.description,issueDate:this.todayDate,returnDate:this.returnDate,returnedOnDate:this.returnedOnDate});
+  	this.book={id:this.id,title:this.title,status:1,author:this.author,description:this.description,issueDate:this.todayDate,returnDate:this.returnDate,returnedOnDate:this.returnedOnDate};
+  	this.books.unshift(this.book);
   	this.dataService.saveData('book',this.books);
+  	this.notification.saveReminder(this.book); //Saving save reminder in system notification
   	this.navCtrl.pop();
   }
 
-  //format date to dd/mm/yyyy
-  dateFormat(dt)
-  {
-  	let symbol="/";
-  	alert(typeof(dt));
-  	let date=dt.getDate();
-  	let month=dt.getMonth()+1;
-  	let year=dt.getFullYear();
-  	return date+symbol+month+symbol+year; 
-  }
+  /*Saving in system notification 
+  saveReminder(){
+  	let notificationTime=new Date(this.returnDate);
+  	notificationTime.setDate(notificationTime.getDate() - 3); 
+  	let notification={
+      id: this.id,
+      title: 'Book Reminder',
+      text: 'You have to return back '+this.title,
+      at: notificationTime,
+      every: 'day',
+      led: 'FF0000' 
+  	};
+  	LocalNotifications.schedule(notification);
+  }*/
+
+  
 }

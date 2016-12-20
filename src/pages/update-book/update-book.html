@@ -17,17 +17,22 @@
 	<ion-list>
 		<ion-item>
     	<ion-label floating>Book Title</ion-label>
-    	<ion-input type="text" [(ngModel)]="title"></ion-input>
+    	<ion-input type="text" [(ngModel)]="book.title"></ion-input>
   	</ion-item>
 
   	<ion-item>
     	<ion-label floating>Book Author</ion-label>
-    	<ion-input type="text" [(ngModel)]="author"></ion-input>
+    	<ion-input type="text" [(ngModel)]="book.author"></ion-input>
   	</ion-item>
 
     <ion-item>
       <ion-label floating>Book Details</ion-label>
-      <ion-textarea [(ngModel)]="description"></ion-textarea>
+      <ion-textarea [(ngModel)]="book.description"></ion-textarea>
+    </ion-item>
+
+    <ion-item *ngIf="book.status==1">
+      <ion-label floating>Return Date</ion-label>
+      <ion-datetime pickerFormat="DD/MM/YYYY" displayFormat="DD MMMM YYYY" [(ngModel)]="book.returnDate" max="2020" min="{{todayDate}}" ></ion-datetime>
     </ion-item>
 	</ion-list>
 

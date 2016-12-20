@@ -11,8 +11,9 @@
 	<ion-list>
 
 		<ion-item-divider color="light" text-center >Currently Issued</ion-item-divider>
-
-		{{message}}
+		<ion-item *ngIf="noOfBook(1)==0">
+			No Books Issued
+		</ion-item>
 		<ion-item-sliding  *ngFor="let book of bookList(1)">
 			<ion-item (click)="openBookDetail(book)">
 				<ion-thumbnail item-left>
@@ -41,6 +42,11 @@
 
 	  <!-- Showing Book That where returned -->
 	  <ion-item-divider color="light" text-center>Returned</ion-item-divider>
+	  	<!--When No Books Returned -->
+	  	<ion-item *ngIf="noOfBook(2)==0">
+			No Books Returned
+		</ion-item>
+
 		<ion-item-sliding  *ngFor="let book of bookList(2)" >
 			<ion-item (click)="openBookDetail(book)">
 				<ion-thumbnail item-left>
